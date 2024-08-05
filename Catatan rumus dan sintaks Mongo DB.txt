@@ -1,0 +1,50 @@
+use contohDB --> aktifkan database
+db --> lihat database yg sedang aktif
+show dbs --> melihat database
+db.person --> buat collection 
+db.person.insert({"name" : "Bambang", "age" : 23}) --> insert
+db.dropDatabase() --> hapus database
+db.createCollection('collectionPertama') -->buat collection
+db.collectionPertam.drop() --> hapus collection
+db.netizen.find() --> melihat data
+db.netizen.find().pretty()
+tahan shift + enter
+db.netizen.findOne --> tampilkan 1 data
+db.netizen.find({nama : "Marion"}) -->cari data dgn nama marion 
+db.netizen.find({umur : 15, kelas : "10A"}) --> cari lebih dr 1 kriteria
+db.netizen.fing=d({$or:[{umur:15}, {kelas : "10A"}]}) --> termasuk kriteria
+db.netizen.find({umur: {$in:[16,17]}}).pretty() --> menampilkan data dgn value tertentu
+lt --> kurang dari
+gt --> lebih dari 
+$ne --> not equievalen = tidak sama dengan
+db.netizen.update({dokumen yg diubah(pakai id)},{$set:{nama : "Ryanupdate"}perubahan data})--> update data yg pertama kali ditemukan
+db.netizen.update({dokumen yg diubah(pakai id)},{$set:{nama : "Ryanupdate"}perubahan data}, {multi:true})--> update data yg termasuk semua
+db.netizen.save({copy datanya trs ganti apa yg mau diubah})--> mengubah dokumen
+db.siswa.remove({"nama" : "radit"})--> hapus data semua
+db.siswa.remove({"nama" : "radit"}, 1) hapus 1 data // 1 = true
+
+projection = memilih field tertentu utk ditampilkan pd document
+db.siswa.find({utk filternya yg mana},{nama : 1, _id:0}) --> tampilin tanpa id
+db.siswa.find({},{nama : 1})
+db.siswa.find({utk filternya yg mana},{nama : 1, _id:0}).limit(2) --> hanya 2 dokumen yg ditampilkan
+db.siswa.find().skip() --> melompati 2 dokumen
+db.siswa.find({},{nama:1, _id:0}).sort({nama:1}) --> sorting berdasaarkan nama
+kalau desc = -1
+
+
+
+db.siswa.count() --> hitung banyaknya doc
+db.siswa.count({kelas : "7"})
+db.siswa.distiinct("jenislomba) --> mencegah adanya duplikasi
+db.lomba.aggregate([{$group : {_id:"$jenislomba"}}]) --> field id akan menggunakan value dr field jenis lomba. id = unik. group cegah duplikat. 
+missal jenis lomba ada yg sama, maka jadi 1 aja.
+totalpeserta: {$sum:1}} -->  total peserta akan berisi jumlah dokumen yg digabungkan.
+
+db.lomba.aggregate([{$match:{jenislomba:{$in:["volly","basket"]}}},
+{$group:{_id:"jenislomba",totalpeserta:{$sum:1}}}]) --> memfilter doc. 
+
+db.lomba.aggregate([{$group:{_id:"$kelas", jumlahmenang: {$sum: "$menang"}}}, {$sort:{jumlahmenang:1}}]) --> gunakan value apa saja pada field kelas sbgai id. jumlahkan value pd field menang dr tiap doc yg digabungkan. urutkan data berdasarkan jlh menang.
+
+
+
+ordered : false
